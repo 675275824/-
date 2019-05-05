@@ -1,0 +1,71 @@
+##递归
+#include<iostream>
+#include<cstring>
+using namespace std;
+int a[1000];
+void find(int *a, int n, int cur)
+{
+	if (cur == n)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			cout << a[i]+1 << " ";
+		}
+		cout << endl;
+	}
+	else
+	{
+		for (int i = 0; i < n; i++)
+		{
+			int ok = 1;
+			for (int j = 0; j < cur; j++)
+				if (a[j] == i)ok = 0;
+			if (ok)
+			{
+				a[cur] = i;
+				find(a, n, cur + 1);
+			}
+		}
+	}
+}
+int main()
+{
+	memset(a, 0, sizeof(a));
+	find(a, 4, 0);
+}
+
+## 字典序
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	int a[4] = { 1,2,3,4};
+	int f = 1;
+	while (f)
+	{
+		int i, j,p;
+		for (p = 3; p >=1; p--)
+		{
+			if (a[p] > a[p - 1])
+			{
+				i = p-1;
+				break;
+			}
+		}
+		if (p == 0) { f = 0; continue; }
+		for (p = 3; p >= 1; p--)
+		{
+			if (a[p] > a[i])
+			{
+				j = p;
+				break;
+			}
+		}
+		swap(a[i], a[j]);
+		sort(a + i + 1, a + 4);
+		for (int p = 0; p < 4; p++)
+			cout << a[p] << " ";
+		cout << endl;
+	}
+}
