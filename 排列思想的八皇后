@@ -1,0 +1,28 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int n, totle = 0;
+int via[3][50] ;
+void sarch(int cur)
+{
+	if (cur == n) totle++;
+	else
+	{
+		for (int i = 0; i < n; i++)
+		{
+			if (!via[0][i] && !via[1][cur + i] && !via[2][cur - i + n])//查重
+			{
+				via[0][i] = via[1][cur + i] = via[2][cur - i + n] = 1;
+				sarch(cur + 1);
+				via[0][i] = via[1][cur + i] = via[2][cur - i + n] = 0;//回溯
+			}
+		}
+	}
+}
+int main()
+{
+	memset(via, 0, sizeof(via));
+	cin >> n;
+	sarch(0);
+	cout << totle << endl;
+}
